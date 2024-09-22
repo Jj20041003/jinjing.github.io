@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>摄影师个人网站</title>
+<style>
+  body {
+    background-color: rgba(248, 240, 212, 0.149);
+    margin: 0;
+    padding: 0;
+    font-family:'MyUnderwood-KOVy','仿宋', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px; /* 根据需要调整最大宽度 */
+  }
+  .sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 左对齐 */
+    justify-content: center;
+    padding-left: 20px; /* 根据需要调整左侧边距 */
+  }
+  .sidebar a {
+    text-decoration: none;
+    color: grey;
+    font-size: 16px;
+    margin: 5px 0; /* 减少行间距 */
+    transition: color 0.3s, text-decoration 0.3s; /* 添加过渡效果 */
+  }
+  .sidebar a:hover {
+    color: black;
+    text-decoration: underline; /* 鼠标悬停时添加下划线 */
+  }
+  .sidebar h1 {
+    font-size: 24px;
+    color: black;
+    margin: 20px 0;
+  }
+  .sidebar h2 {
+    font-size: 20px;
+    color: black;
+    margin: 10px 0;
+  }
+  .carousel {
+    flex: 3;
+    overflow: hidden; /* 隐藏超出容器的图片 */
+    position: relative;
+    height: 700px; /* 容器高度 */
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+  }
+  .carousel-track {
+    display: flex;
+    transition: transform 1s ease-in-out; /* 平滑切换动画 */
+    width: 100%; /* 设置为100% */
+  }
+  .carousel img {
+    max-width: 60%; /* 缩小图片的最大宽度 */
+    max-height: 100%; /* 保持图片高度不超过容器 */
+    object-fit: contain; /* 保证图片完全显示 */
+    flex-shrink: 0; /* 防止图片缩小 */
+    display: none; /* 隐藏所有图片 */
+  }
+  .carousel img.active {
+    display: block; /* 仅显示当前活动的图片 */
+    margin-left: auto; /* 将图片推向右侧 */
+    margin-right: auto; /* 将图片推向左侧 */
+  }
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgb(11, 11, 11);
+    font-size: 20px; /* 调整箭头大小 */
+    cursor: pointer;
+    z-index: 1000;
+  }
+  .arrow.left {
+    left: 100px; /* 靠近图片 */
+  }
+  .arrow.right {
+    right: 100px; /* 靠近图片 */
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="sidebar">
+    <h1>JinJing</h1>
+    <h2>personal works</h2>
+    <a href="#photo1">靜靜的午後</a>
+    <a href="#photo2">摩托車穿過沒有冬天的城市</a>
+    <a href="#photo3">飛馳在路上</a>
+    <a href="#photo4">through the lens of life</a>
+  </div>
+  <div class="carousel">
+    <!-- 图片容器 -->
+    <div class="carousel-track">
+      <img src="1.jpg" alt="Image 1" class="active">
+      <img src="2.jpg" alt="Image 2">
+      <img src="3.jpg" alt="Image 3">
+      <img src="4.jpg" alt="Image 4">
+      <img src="5.jpg" alt="Image 5">
+    </div>
+    <div class="arrow left" onclick="changeImage(-1)">&#10094;</div>
+    <div class="arrow right" onclick="changeImage(1)">&#10095;</div>
+  </div>
+</div>
+
+<script>
+  let currentImageIndex = 0;
+  const images = document.querySelectorAll('.carousel img');
+  const totalImages = images.length;
+
+  function changeImage(direction) {
+    currentImageIndex += direction;
+    if (currentImageIndex < 0) {
+      currentImageIndex = totalImages - 1;
+    } else if (currentImageIndex >= totalImages) {
+      currentImageIndex = 0;
+    }
+    images.forEach(img => img.classList.remove('active'));
+    images[currentImageIndex].classList.add('active');
+  }
+
+  setInterval(() => {
+    changeImage(1);
+  }, 5000); // 每5秒自动切换到下一张图片
+</script>
+</body>
+</html>
